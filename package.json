@@ -14,11 +14,10 @@
   "homepage": "https://bulkrender.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ayo-nci/document-generation-api-railway.git",
-    "directory": "packages/bulkrender-mcp"
+    "url": "https://github.com/ayo-nci/bulkrender-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/ayo-nci/document-generation-api-railway/issues"
+    "url": "https://github.com/ayo-nci/bulkrender-mcp/issues"
   },
   "license": "MIT",
   "main": "server.js",

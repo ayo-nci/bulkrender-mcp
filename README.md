@@ -77,5 +77,5 @@ Set `BULKRENDER_API_URL=http://localhost:3000` for local development.
 ## Links
 
 - [BulkRender](https://bulkrender.com)
-- [Documentation](https://github.com/ayo-nci/document-generation-api-railway/blob/main/docs/MCP_SETUP.md)
-- [GitHub](https://github.com/ayo-nci/document-generation-api-railway)
+- [Documentation](https://bulkrender.com/guide)
+- [GitHub](https://github.com/ayo-nci/bulkrender-mcp)
