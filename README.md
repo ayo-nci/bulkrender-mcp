@@ -68,6 +68,19 @@ Set `BULKRENDER_API_URL=http://localhost:3000` for local development.
 
 > "How many BulkRender credits do I have left?"
 
+## Rate Limits
+
+All limits are enforced by the BulkRender API, not the MCP server itself.
+
+| Endpoint type                                                      | Limit                                 |
+| ------------------------------------------------------------------ | ------------------------------------- |
+| Document generation (`generate_document`, `generate_batch`)        | 30 requests / minute per organization |
+| Template reads (`list_templates`, `get_template`, `check_credits`) | 30 requests / minute per organization |
+
+When the limit is hit, the API returns HTTP `429`. The MCP server surfaces this as a tool error with the message `"You are making too many requests. Please try again later."` — the AI assistant will see this and can retry after a short pause.
+
+**Batch jobs:** `generate_batch` counts as **one** API request regardless of record count (up to 500 records). Use batching to stay well within the rate limit when generating many documents at once.
+
 ## Security
 
 - API key is passed per-tool-call, never stored by the MCP server
