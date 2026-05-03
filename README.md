@@ -128,7 +128,7 @@ When the limit is hit, the API returns HTTP `429`. The MCP server surfaces this 
 | Problem               | Solution                                                                                              |
 | --------------------- | ----------------------------------------------------------------------------------------------------- |
 | `Invalid API key`     | Check key format: `br_live_<prefix>_<secret>`. Regenerate from Settings → Platform API Keys if lost. |
-| `Template not found`  | Use `list_templates` to get the correct UUID — slug names (e.g. `"sample-invoice"`) are not accepted |
+| `Template not found`  | Use `list_templates` to get the UUID, or pass the slug directly (e.g. `"sample-invoice"`) — both are accepted |
 | Timeout on large batch | Batches over 10 records process asynchronously. Wait for the job to complete.                        |
 | Server not connecting | Run `claude mcp list` to check status. Re-run `claude mcp add` command if missing.                   |
 
