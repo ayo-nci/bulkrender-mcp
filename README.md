@@ -1,6 +1,6 @@
 # bulkrender-mcp
 
-BulkRender MCP server — generate DOCX and PDF documents from any AI assistant that supports the [Model Context Protocol](https://modelcontextprotocol.io) (Claude, Cursor, Windsurf, Cline, and more).
+BulkRender MCP server. Generate DOCX and PDF documents from any AI assistant that supports the [Model Context Protocol](https://modelcontextprotocol.io) (Claude, Cursor, Windsurf, Cline, and more).
 
 ## Tools
 
@@ -16,13 +16,13 @@ Credit costs: DOCX = 1 credit, PDF = 2 credits.
 
 ## Prerequisites
 
-1. A BulkRender account at [app.bulkrender.com](https://app.bulkrender.com)
-2. An API key (`br_live_...`) — generate one from **Settings → Platform API Keys** (shown once — copy immediately)
+1. A BulkRender account at [bulkrender.com](https://bulkrender.com)
+2. An API key (`br_live_...`). Generate one from **Settings, Platform API Keys** (shown once, copy immediately)
 3. Node.js 18+
 
 ## Installation
 
-### Claude Code (CLI — recommended)
+### Claude Code (CLI, recommended)
 
 Run once in your terminal:
 
@@ -81,9 +81,9 @@ Use the same `mcpServers` block above in your app's MCP config file. Location va
 
 ## Configuration
 
-| Variable             | Required | Description                                      |
-| -------------------- | -------- | ------------------------------------------------ |
-| `BULKRENDER_API_KEY` | Yes      | Your API key (`br_live_<prefix>_<secret>`)       |
+| Variable             | Required | Description                                                   |
+| -------------------- | -------- | ------------------------------------------------------------- |
+| `BULKRENDER_API_KEY` | Yes      | Your API key (`br_live_<prefix>_<secret>`)                    |
 | `BULKRENDER_API_URL` | No       | Override API base URL (default: `https://api.bulkrender.com`) |
 
 Set `BULKRENDER_API_URL=http://localhost:3000` for local development.
@@ -110,6 +110,15 @@ Returns a signed ZIP download URL.
 
 > "How many BulkRender credits do I have left?"
 
+## Troubleshooting
+
+| Problem                | Solution                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `Invalid API key`      | Check key format: `br_live_<prefix>_<secret>`. Regenerate from Settings, Platform API Keys if lost.           |
+| `Template not found`   | Use `list_templates` to get the UUID, or pass the slug directly (e.g. `"sample-invoice"`). Both are accepted. |
+| Timeout on large batch | Batches over 10 records process asynchronously. Wait for the job to complete.                                 |
+| Server not connecting  | Run `claude mcp list` to check status. Re-run `claude mcp add` command if missing.                            |
+
 ## Rate Limits
 
 All limits are enforced by the BulkRender API, not the MCP server itself.
@@ -119,27 +128,18 @@ All limits are enforced by the BulkRender API, not the MCP server itself.
 | Document generation (`generate_document`, `generate_batch`)        | 30 requests / minute per organization |
 | Template reads (`list_templates`, `get_template`, `check_credits`) | 30 requests / minute per organization |
 
-When the limit is hit, the API returns HTTP `429`. The MCP server surfaces this as a tool error — the AI assistant will see this and can retry after a short pause.
+When the limit is hit, the API returns HTTP `429`. The MCP server surfaces this as a tool error. The AI assistant will see this and can retry after a short pause.
 
 **Batch jobs:** `generate_batch` counts as **one** API request regardless of record count (up to 500 records).
 
-## Troubleshooting
-
-| Problem               | Solution                                                                                              |
-| --------------------- | ----------------------------------------------------------------------------------------------------- |
-| `Invalid API key`     | Check key format: `br_live_<prefix>_<secret>`. Regenerate from Settings → Platform API Keys if lost. |
-| `Template not found`  | Use `list_templates` to get the UUID, or pass the slug directly (e.g. `"sample-invoice"`) — both are accepted |
-| Timeout on large batch | Batches over 10 records process asynchronously. Wait for the job to complete.                        |
-| Server not connecting | Run `claude mcp list` to check status. Re-run `claude mcp add` command if missing.                   |
-
 ## Security
 
-- API key is passed via environment variable — not stored by the MCP server
+- API key is passed via environment variable, not stored by the MCP server
 - All production communication uses HTTPS
-- Signed download URLs expire after 1 hour
+- Signed download URLs expire after 1 hour. The underlying file remains available for your plan's retention period. Call the API again to get a fresh URL.
 
 ## Links
 
 - [BulkRender](https://bulkrender.com)
-- [Documentation](https://bulkrender.com/guide)
+- [API Documentation](https://bulkrender.com/docs/api)
 - [GitHub](https://github.com/ayo-nci/bulkrender-mcp)
