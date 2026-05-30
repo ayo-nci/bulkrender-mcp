@@ -1,6 +1,6 @@
 {
   "name": "bulkrender-mcp",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "BulkRender MCP server — generate documents from AI assistants (Claude, Cursor, Windsurf)",
   "keywords": [
     "mcp",
@@ -22,11 +22,13 @@
   "license": "MIT",
   "main": "server.js",
   "bin": {
-    "bulkrender-mcp": "index.js"
+    "bulkrender-mcp": "index.js",
+    "bulkrender-mcp-http": "http.js"
   },
   "mcpName": "io.github.ayo-nci/bulkrender",
   "files": [
     "index.js",
+    "http.js",
     "server.js",
     "README.md"
   ],
@@ -36,6 +38,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "axios": "^1.13.2",
+    "express": "^4.21.2",
     "zod": "^3.22.0"
   }
 }

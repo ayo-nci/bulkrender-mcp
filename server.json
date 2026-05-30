@@ -6,16 +6,23 @@
     "url": "https://github.com/ayo-nci/bulkrender-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.1.2",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "bulkrender-mcp",
-      "version": "1.0.0",
+      "version": "1.1.2",
       "transport": {
         "type": "stdio"
       },
       "environmentVariables": [
+        {
+          "name": "BULKRENDER_API_KEY",
+          "description": "Your BulkRender API key. Get one at bulkrender.com → Settings → API Keys. Format: br_live_xxxxxxxx_xxxxxxxx",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
         {
           "name": "BULKRENDER_API_URL",
           "description": "BulkRender API base URL. Defaults to https://api.bulkrender.com — only set for local development.",
