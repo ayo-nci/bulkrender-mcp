@@ -1,10 +1,17 @@
 # Smithery configuration — https://smithery.ai/docs/config
 startCommand:
-  type: http
-  url: https://api.bulkrender.com/mcp/sse
+  type: stdio
+  commandFunction: |-
+    (config) => ({
+      command: "npx",
+      args: ["-y", "bulkrender-mcp"],
+      env: { BULKRENDER_API_KEY: config.BULKRENDER_API_KEY }
+    })
   configSchema:
     type: object
+    required:
+      - BULKRENDER_API_KEY
     properties:
       BULKRENDER_API_KEY:
         type: string
-        description: "Your BulkRender API key. Get it from app.bulkrender.com → Settings → Integrations."
+        description: "Your BulkRender API key. Get one at bulkrender.com → Settings → API Keys. Format: br_live_xxxxxxxx_xxxxxxxx"
